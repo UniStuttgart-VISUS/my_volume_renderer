@@ -67,7 +67,7 @@ class Shader
                 geometryCode = gShaderStream.str();
             }
         }
-        catch (std::ifstream::failure &e)
+        catch (std::ifstream::failure)
         {
             std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" <<
                 std::endl;
@@ -132,7 +132,7 @@ class Shader
             // convert stream into string
             computeCode = cShaderStream.str();
         }
-        catch (std::ifstream::failure &e)
+        catch (std::ifstream::failure)
         {
             std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" <<
                 std::endl;

@@ -51,12 +51,14 @@ util::tf::ControlPointRGBA& util::tf::ControlPointRGBA::operator=(
 util::tf::ControlPointRGBA::~ControlPointRGBA(){}
 
 bool util::tf::ControlPointRGBA::compare(
-        __attribute__((unused)) ControlPointRGBA a,
-        __attribute__((unused)) ControlPointRGBA b)
+        ControlPointRGBA,
+        ControlPointRGBA)
 {
         std::cout << "Warning: call to empty compare function of control "
             "point base class" << std::endl;
         assert(0);
+
+        return false;
 }
 
 bool util::tf::ControlPointRGBA::operator==(const ControlPointRGBA &other)

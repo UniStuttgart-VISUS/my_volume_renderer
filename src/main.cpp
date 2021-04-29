@@ -132,7 +132,7 @@ int applyProgramOptions(
             output = vm["output-file"].as<std::string>();
 
     }
-    catch(std::exception &e)
+    catch(std::exception)
     {
         std::cout << "Invalid program options!" << std::endl;
         return EXIT_FAILURE;

@@ -1401,13 +1401,13 @@ void mvr::Renderer::drawSettingsWindow()
 
 void mvr::Renderer::drawHistogramWindow()
 {
-    float values[m_histogramBins.size()];
+    std::vector<float> values(m_histogramBins.size());
 
     size_t yMax = 0;
     for(size_t i = 0; i < m_histogramBins.size(); i++)
     {
         if (m_semilogHistogram)
-            values[i] = log10(std::get<2>(m_histogramBins[i]));
+            values[i] = static_cast<float>(log10(std::get<2>(m_histogramBins[i])));
         else
             values[i] = static_cast<float>(std::get<2>(m_histogramBins[i]));
 
@@ -1418,12 +1418,12 @@ void mvr::Renderer::drawHistogramWindow()
     ImGui::PushItemWidth(-1);
     ImGui::PlotHistogram(
         "",
-        values,
+        values.data(),
         m_histogramBins.size(),
         0,
         nullptr,
         0.f,
-        yMax,
+        static_cast<float>(yMax),
         ImVec2(0, 160));
     ImGui::PopItemWidth();
     ImGui::Checkbox("semi-logarithmic", &m_semilogHistogram);
@@ -2093,7 +2093,7 @@ void mvr::Renderer::char_cb(GLFWwindow* window, unsigned int c)
 }
 
 void mvr::Renderer::framebufferSize_cb(
-    __attribute__((unused)) GLFWwindow* window,
+    GLFWwindow* window,
     int width,
     int height)
 {

@@ -227,7 +227,7 @@ namespace util
             static_cast<double>(num_bins);
 
         // initialize the bins
-        for (size_t i = 0; i < num_bins; i++)
+        for (std::size_t i = 0; i < num_bins; i++)
         {
             std::get<0>((bins)[i]) =
                 static_cast<double>(i) * bin_size -
@@ -242,7 +242,7 @@ namespace util
 
         // walk through values and count them in bins
         #pragma omp parallel for
-        for (size_t i = 0; i < num_values; i++)
+        for (long long i = 0; i < static_cast<long long>(num_values); i++)
         {
             T val = values[i];
             // place in corresponding bin
@@ -277,10 +277,12 @@ namespace util
         // walk through values and search min and max
         T minimum = static_cast<T>(0.0);
         T maximum = static_cast<T>(1.0);
+#if !defined(_MSC_VER)
         #pragma omp parallel for \
             reduction(min: minimum) \
             reduction(max: maximum)
-        for (size_t i = 0; i < num_values; i++)
+#endif
+        for (long long i = 0; i < static_cast<long long>(num_values); i++)
         {
             T val = values[i];
             if (val < minimum) minimum = val;
